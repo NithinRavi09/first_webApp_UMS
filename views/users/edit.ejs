@@ -1,0 +1,76 @@
+<%- include('../layouts/header.ejs') %>
+
+<style>
+    body {
+        background-image: url('./images/blurImg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .login-container {
+        background: rgba(198, 9, 9, 0.8);
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="text-center mb-4">
+                <img src="userImages/<%= user.image %>" class="img-thumbnail" width="150px" height="150px" alt="">
+            </div>
+            <form action="" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <div class="form-group">
+                    <label for="image">Profile Image</label>
+                    <input type="file" class="form-control-file" id="image" name="image">
+                    <input type="hidden" name="user_id" value="<%= user._id %>">
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="<%= user.name %>" placeholder="Enter Name" required>
+                    <div class="invalid-feedback">Please enter your name.</div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>" placeholder="Enter Email" required>
+                    <div class="invalid-feedback">Please enter a valid email address.</div>
+                </div>
+                <div class="form-group">
+                    <label for="mno">Mobile Number</label>
+                    <input type="text" class="form-control" id="mno" name="mno" value="<%= user.mobile %>" placeholder="Enter Mobile" required>
+                    <div class="invalid-feedback">Please enter your mobile number.</div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/footer.ejs') %>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Bootstrap validation script
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>

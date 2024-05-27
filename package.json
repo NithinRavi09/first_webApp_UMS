@@ -1,0 +1,26 @@
+{
+  "name": "login-page-main",
+  "version": "1.0.0",
+  "description": "loginSystem",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "Nithin Ravi",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-history-api-fallback": "^2.2.1",
+    "express-session": "^1.18.0",
+    "mongodb": "^6.6.1",
+    "mongoose": "^8.3.4",
+    "multer": "^1.4.5-lts.1",
+    "nocache": "^4.0.0",
+    "nodemon": "^3.1.0",
+    "uuid": "^9.0.1"
+  }
+}

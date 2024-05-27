@@ -1,0 +1,199 @@
+<!-- <%- include('../layouts/header.ejs') %>
+
+<h1>Add New User</h1>
+<form id="addUserForm" action="" method="post" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="Enter name" required>
+    <span id="nameError" style="color: red;"></span>
+    <br><br>
+    <input type="email" name="email" placeholder="Enter Email" required>
+    <span id="emailError" style="color: red;"></span>
+    <br><br>
+    <input type="text" name="mno" placeholder="Enter Mobile" required>
+    <span id="mnoError" style="color: red;"></span>
+    <br><br>
+    <input type="file" name="image">
+    <br><br>
+    <input type="password" name="password" placeholder="Enter Password" required>
+    <span id="passwordError" style="color: red;"></span>
+    <br><br>
+    <input type="submit" value="Add User">
+</form>
+
+<%
+
+   if(typeof message !== 'undefined'){
+        %>
+        <p style="color: red;"><%= message %></p>
+        <%
+   } 
+
+%>
+
+<a href="/admin/dashboard">Go Back</a>
+
+<% include('../layouts/footer.ejs') %> 
+
+<script>
+document.getElementById('addUserForm').addEventListener('submit', function(event) {
+    // Get form values
+    const name = document.getElementsByName('name')[0].value.trim(); // Trim leading and trailing spaces
+    const email = document.getElementsByName('email')[0].value;
+    const mno = document.getElementsByName('mno')[0].value;
+    const password = document.getElementsByName('password')[0].value;
+
+    // Regular expressions for validation
+    const namePattern = /^[A-Za-z\s]+$/; // Name should only contain letters and spaces
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phonePattern = /^\d{10}$/; // Phone number should be 10 digits long and contain only numbers
+
+    // Clear previous error messages
+    document.getElementById('nameError').textContent = '';
+    document.getElementById('emailError').textContent = '';
+    document.getElementById('mnoError').textContent = '';
+    document.getElementById('passwordError').textContent = '';
+
+    let isValid = true;
+
+    // Validation
+    if (!namePattern.test(name)) {
+        document.getElementById('nameError').textContent = 'Name should only contain letters and spaces.';
+        isValid = false;
+    }
+
+    if (!emailPattern.test(email)) {
+        document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+        isValid = false;
+    }
+
+    if (!phonePattern.test(mno)) {
+        document.getElementById('mnoError').textContent = 'Phone number should be 10 digits long and contain only numbers.';
+        isValid = false;
+    }
+
+    if (password.length < 8) {
+        document.getElementById('passwordError').textContent = 'Password should be at least 8 characters long.';
+        isValid = false;
+    }
+
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
+</script> -->
+
+<%- include('../layouts/header.ejs') %>
+
+<style>
+    body {
+        background-image: url('./images/blurImg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .login-container {
+        background: rgba(198, 9, 9, 0.8);
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Add New User</h1>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <form id="addUserForm" action="" method="post" enctype="multipart/form-data" class="bg-light p-4 rounded shadow">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" required>
+                    <span id="nameError" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
+                    <span id="emailError" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="mno">Mobile</label>
+                    <input type="text" class="form-control" id="mno" name="mno" placeholder="Enter Mobile" required>
+                    <span id="mnoError" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <input type="file" class="form-control-file" id="image" name="image">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+                    <span id="passwordError" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Add User</button>
+            </form>
+
+            <% if (typeof message !== 'undefined') { %>
+                <p class="text-danger text-center mt-3"><%= message %></p>
+            <% } %>
+
+            <div class="text-center mt-4">
+                <a href="/admin/dashboard" class="btn btn-secondary">Go Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/footer.ejs') %>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+document.getElementById('addUserForm').addEventListener('submit', function(event) {
+    // Get form values
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value;
+    const mno = document.getElementById('mno').value;
+    const password = document.getElementById('password').value;
+
+    // Regular expressions for validation
+    const namePattern = /^[A-Za-z\s]+$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phonePattern = /^\d{10}$/;
+
+    // Clear previous error messages
+    document.getElementById('nameError').textContent = '';
+    document.getElementById('emailError').textContent = '';
+    document.getElementById('mnoError').textContent = '';
+    document.getElementById('passwordError').textContent = '';
+
+    let isValid = true;
+
+    // Validation
+    if (!namePattern.test(name)) {
+        document.getElementById('nameError').textContent = 'Name should only contain letters and spaces.';
+        isValid = false;
+    }
+
+    if (!emailPattern.test(email)) {
+        document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+        isValid = false;
+    }
+
+    if (!phonePattern.test(mno)) {
+        document.getElementById('mnoError').textContent = 'Phone number should be 10 digits long and contain only numbers.';
+        isValid = false;
+    }
+
+    if (password.length < 8) {
+        document.getElementById('passwordError').textContent = 'Password should be at least 8 characters long.';
+        isValid = false;
+    }
+
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
+</script>
+

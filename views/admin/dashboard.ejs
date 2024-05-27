@@ -1,0 +1,114 @@
+<%- include('../layouts/header.ejs') %>
+
+<style>
+    body {
+        background-image: url('./images/blurImg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .login-container {
+        background: rgba(198, 9, 9, 0.8);
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<div class="container mt-5">
+    <h1 class="text-center">Dashboard</h1>
+
+    <% if(locals.srch){ %>
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-6">
+                <form class="d-flex">
+                    <input type="search" class="form-control me-2" placeholder="<%=srch%>" name="search" id="searchInput">
+                    <button type="submit" name="sr" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
+    <% } else { %>
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-6">
+                <form class="d-flex">
+                    <input type="search" class="form-control me-2" placeholder="Search" name="search" id="searchInput">
+                    <button type="submit" name="sr" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
+    <% } %>
+
+    <div class="text-center mb-4">
+        <a href="/admin/new-user" class="btn btn-success">Add New User</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(users.length > 0){ %>
+                    <% for(let i = 0; i < users.length; i++){ %>
+                        <tr>
+                            <td><%= users[i].name %></td>
+                            <td><%= users[i].email %></td>
+                            <td><%= users[i].mobile %></td>
+                            <td><img src="/userImages/<%= users[i].image %>" class="img-fluid rounded" width="100" height="100" alt="<%= users[i].image %>"></td>
+                            <td>
+                                <a href="/admin/edit-user?id=<%= users[i]._id %>" class="btn btn-primary btn-sm">Edit</a>
+                                <button class="btn btn-danger btn-sm deleteButton" data-id="<%= users[i]._id %>">Delete</button>
+                            </td>
+                        </tr>
+                    <% } %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5" class="text-center">User Not found</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="/admin/home" class="btn btn-secondary">Go to Home</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const deleteButtons = document.querySelectorAll('.deleteButton');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const userId = this.getAttribute('data-id');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'Do you really want to delete this user?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to delete user URL or send an AJAX request to delete the user
+                    window.location.href = `/admin/delete-user?id=${userId}`;
+                }
+            });
+        });
+    });
+
+    let srch = document.getElementById('srch_form')
+    srch.addEventListener('submit',(event)=>{
+        let searchValue = srch.elements['sr'].value;
+        srch.querySelector('#searchInput').placeholder = searchValue;
+    });
+</script>
+
+<%- include('../layouts/footer.ejs') %>

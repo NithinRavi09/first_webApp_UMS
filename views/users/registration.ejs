@@ -1,0 +1,116 @@
+<%- include('../layouts/header.ejs') %>
+
+<style>
+    body {
+        background-image: url('./images/blurImg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .login-container {
+        background: rgba(198, 9, 9, 0.8);
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<h1 class="text-center mt-5">User Registration Form</h1>
+<div class="container mt-5">
+    <form id="registrationForm" action="" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" required>
+            <div class="invalid-feedback" id="nameError">Name should only contain letters and spaces, and cannot start with a number.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email" required>
+            <div class="invalid-feedback" id="emailError">Please enter a valid email address.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="mno">Mobile Number</label>
+            <input type="text" class="form-control" name="mno" id="mno" placeholder="Enter Mobile" required>
+            <div class="invalid-feedback" id="mnoError">Enter a valid Phone Number. Phone number cannot start with zero.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Profile Image</label>
+            <input type="file" class="form-control-file" name="image" id="image" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" required>
+            <div class="invalid-feedback" id="passwordError">Password should be at least 8 characters long.</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+        <a href="/login" class="btn btn-link">Login</a>
+    </form>
+</div>
+
+<% include('../layouts/footer.ejs') %>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    // Get form values
+    const name = document.getElementsByName('name')[0].value.trim(); // Trim leading and trailing spaces
+    const email = document.getElementsByName('email')[0].value;
+    const mno = document.getElementsByName('mno')[0].value;
+    const password = document.getElementsByName('password')[0].value;
+
+    // Regular expressions for validation
+    const namePattern = /^[A-Za-z][A-Za-z\s]*$/; // Name cannot start with a number
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phonePattern = /^[1-9][0-9]{9}$/;
+
+    // Clear previous error messages
+    document.getElementById('nameError').textContent = 'Name should only contain letters and spaces, and cannot start with a number.';
+    document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+    document.getElementById('mnoError').textContent = 'Enter a valid Phone Number. Phone number cannot start with zero.';
+    document.getElementById('passwordError').textContent = 'Password should be at least 8 characters long.';
+
+    let isValid = true;
+
+    // Validation
+    if (!namePattern.test(name)) {
+        document.getElementById('nameError').style.display = 'block';
+        isValid = false;
+    } else {
+        document.getElementById('nameError').style.display = 'none';
+    }
+
+    if (!emailPattern.test(email)) {
+        document.getElementById('emailError').style.display = 'block';
+        isValid = false;
+    } else {
+        document.getElementById('emailError').style.display = 'none';
+    }
+
+    if (!phonePattern.test(mno)) {
+        document.getElementById('mnoError').style.display = 'block';
+        isValid = false;
+    } else {
+        document.getElementById('mnoError').style.display = 'none';
+    }
+
+    if (password.length < 8) {
+        document.getElementById('passwordError').style.display = 'block';
+        isValid = false;
+    } else {
+        document.getElementById('passwordError').style.display = 'none';
+    }
+
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
+</script>
+
